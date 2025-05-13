@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dominio Canino</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>🐶 Dominio Canino 🎲</h1>
+    <h2>Turno actual: <span id="turno">1</span></h2>
+
+    <h3>Año actual en el juego: <span id="relojAño">2013</span></h3>
+    <h3>Tiempo restante en turno: <span id="relojTiempo">60</span> segundos</h3>
+
+    <button onclick="siguienteTurno()">Siguiente Turno</button>
+
+    <h3>Jugadores:</h3>
+    <ul id="listaJugadores"></ul>
+
+    <input type="text" id="nombreJugador" placeholder="Nombre del jugador">
+    <select id="razaJugador">
+        <option value="Pastor Alemán">Pastor Alemán</option>
+        <option value="Husky">Husky</option>
+        <option value="Pitbull">Pitbull</option>
+        <option value="Golden Retriever">Golden Retriever</option>
+        <option value="Dóberman">Dóberman</option>
+    </select>
+    <button onclick="agregarJugador()">Agregar Jugador</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
