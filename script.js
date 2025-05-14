@@ -19,16 +19,7 @@ function iniciarJuego() {
         jugadores.push(nombre);
         turnos[nombre] = 1500;
         guardarJugadores();
-
-        let listaJugadores = document.getElementById("listaJugadores");
-        let nuevoJugador = document.createElement("li");
-        nuevoJugador.innerText = `${nombre} - 💰 $${turnos[nombre]}`;
-        listaJugadores.appendChild(nuevoJugador);
-
-        if (jugadores.length === 1) {
-            document.getElementById("turnoJugador").innerText = jugadores[0];
-            iniciarTemporizador();
-        }
+        actualizarDineroJugadores();
 
         document.getElementById("nombreJugador").value = "";
     } else {
@@ -74,6 +65,15 @@ function actualizarDineroJugadores() {
         nuevoJugador.innerText = `${jugador} - 💰 $${turnos[jugador]}`;
         listaJugadores.appendChild(nuevoJugador);
     });
+}
+
+// Función para borrar partida (Eliminar `localStorage` y recargar)
+function borrarPartida() {
+    let confirmacion = confirm("¿Estás seguro de que quieres borrar la partida? Se eliminarán todos los jugadores y su dinero.");
+    if (confirmacion) {
+        localStorage.clear();
+        location.reload();
+    }
 }
 
 // Recargar la lista de jugadores al cargar `index.html`
