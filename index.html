@@ -8,25 +8,20 @@
 </head>
 <body>
     <h1>🐶 Dominio Canino 🎲</h1>
-    <h2>Turno actual: <span id="turno">1</span></h2>
+    
+    <h3>Ingresa tu nombre para jugar:</h3>
+    <input type="text" id="nombreJugador" placeholder="Tu nombre">
+    <button onclick="iniciarJuego()">Iniciar Juego</button>
+    
+    <h2>Turno actual: <span id="turnoJugador">Esperando jugadores...</span></h2>
 
     <h3>Año actual en el juego: <span id="relojAño">2013</span></h3>
-    <h3>Tiempo restante en turno: <span id="relojTiempo">60</span> segundos</h3>
+    <h3>Tiempo restante en turno: <span id="relojTiempo">120</span> segundos</h3>
 
     <button onclick="siguienteTurno()">Siguiente Turno</button>
 
     <h3>Jugadores:</h3>
     <ul id="listaJugadores"></ul>
-
-    <input type="text" id="nombreJugador" placeholder="Nombre del jugador">
-    <select id="razaJugador">
-        <option value="Pastor Alemán">Pastor Alemán</option>
-        <option value="Husky">Husky</option>
-        <option value="Pitbull">Pitbull</option>
-        <option value="Golden Retriever">Golden Retriever</option>
-        <option value="Dóberman">Dóberman</option>
-    </select>
-    <button onclick="agregarJugador()">Agregar Jugador</button>
 
     <script src="script.js"></script>
 </body>
