@@ -1,5 +1,5 @@
-let jugadores = [];
-let turnoActual = 0;
+let jugadores = []; // Lista de jugadores
+let turnoActual = 0; // Índice del jugador en turno
 let tiempoRestante = 120;
 let añoActual = 2013;
 let intervaloTiempo;
@@ -8,10 +8,17 @@ let intervaloAño;
 function iniciarJuego() {
     let nombre = document.getElementById("nombreJugador").value;
     if (nombre) {
-        jugadores.push(nombre);
+        jugadores.push(nombre); // Agregar el jugador a la lista
         document.getElementById("listaJugadores").innerHTML += `<li>${nombre}</li>`;
-        document.getElementById("turnoJugador").innerText = jugadores[0];
-        document.getElementById("nombreJugador").value = "";
+        
+        // Si es el primer jugador, inicia el juego con su nombre en turno
+        if (jugadores.length === 1) {
+            document.getElementById("turnoJugador").innerText = jugadores[0];
+            iniciarRelojTiempo();
+            iniciarRelojAño();
+        }
+
+        document.getElementById("nombreJugador").value = ""; // Limpiar el campo de entrada
     }
 }
 
@@ -52,8 +59,10 @@ function siguienteTurno() {
     }
 }
 
-// Iniciar relojes al cargar la página
+// Iniciar relojes al cargar la página si ya hay jugadores registrados
 window.onload = () => {
-    iniciarRelojTiempo();
-    iniciarRelojAño();
+    if (jugadores.length > 0) {
+        iniciarRelojTiempo();
+        iniciarRelojAño();
+    }
 };
