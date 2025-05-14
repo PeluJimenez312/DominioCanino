@@ -1,12 +1,22 @@
-let turno = 1;
 let jugadores = [];
-let tiempoRestante = 60;
+let turnoActual = 0;
+let tiempoRestante = 120;
 let añoActual = 2013;
 let intervaloTiempo;
 let intervaloAño;
 
+function iniciarJuego() {
+    let nombre = document.getElementById("nombreJugador").value;
+    if (nombre) {
+        jugadores.push(nombre);
+        document.getElementById("listaJugadores").innerHTML += `<li>${nombre}</li>`;
+        document.getElementById("turnoJugador").innerText = jugadores[0];
+        document.getElementById("nombreJugador").value = "";
+    }
+}
+
 function iniciarRelojTiempo() {
-    tiempoRestante = 60;
+    tiempoRestante = 120;
     document.getElementById("relojTiempo").innerText = tiempoRestante;
 
     clearInterval(intervaloTiempo);
@@ -17,7 +27,7 @@ function iniciarRelojTiempo() {
         } else {
             siguienteTurno();
         }
-    }, 1000); // Se actualiza cada segundo
+    }, 1000);
 }
 
 function iniciarRelojAño() {
@@ -29,28 +39,16 @@ function iniciarRelojAño() {
             añoActual = 2013; // Reinicia el año al llegar a 3000
         }
         document.getElementById("relojAño").innerText = añoActual;
-    }, 120000); // Se actualiza cada 120 segundos (2 minutos)
+    }, 120000); // Cambia de año cada 2 minutos
 }
 
 function siguienteTurno() {
-    turno++;
-    document.getElementById("turno").innerText = turno;
-    iniciarRelojTiempo();
-}
-
-function agregarJugador() {
-    let nombre = document.getElementById("nombreJugador").value;
-    let raza = document.getElementById("razaJugador").value;
-
-    if (nombre) {
-        jugadores.push({ nombre, raza });
-
-        let lista = document.getElementById("listaJugadores");
-        let nuevoJugador = document.createElement("li");
-        nuevoJugador.innerText = `${nombre} (${raza})`;
-        lista.appendChild(nuevoJugador);
-
-        document.getElementById("nombreJugador").value = "";
+    if (jugadores.length > 0) {
+        turnoActual = (turnoActual + 1) % jugadores.length;
+        document.getElementById("turnoJugador").innerText = jugadores[turnoActual];
+        iniciarRelojTiempo();
+    } else {
+        alert("Agrega jugadores antes de iniciar la partida.");
     }
 }
 
