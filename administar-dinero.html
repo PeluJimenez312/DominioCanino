@@ -4,8 +4,15 @@ let turnos = JSON.parse(localStorage.getItem("turnos")) || {};
 let turnoActual = 0;
 let tiempoRestante = 120;
 let intervaloTiempo;
+let añoActual = 2013;
+let eventos = [
+    { nombre: "Inspección Veterinaria", efecto: "Mejora gratuita si tienes veterinaria / Cierre por 2 turnos sin permisos", costoEvitar: 100 },
+    { nombre: "Crisis Económica", efecto: "Todos pierden $200 / Puedes invertir si tienes más de $2,000 para ganar $300", costoEvitar: 300 },
+    { nombre: "Tormenta Severa", efecto: "Se pierde electricidad por 1 turno / Reparación cuesta $150", costoEvitar: 150 },
+    { nombre: "Migración de Manadas", efecto: "Cada jugador recibe +1 perro extra con habilidad", costoEvitar: 0 }
+];
 
-// Guardar jugadores en localStorage
+// Función para guardar jugadores en localStorage
 function guardarJugadores() {
     localStorage.setItem("jugadores", JSON.stringify(jugadores));
     localStorage.setItem("turnos", JSON.stringify(turnos));
@@ -17,8 +24,8 @@ function iniciarJuego() {
 
     if (nombre.trim() !== "") { 
         jugadores.push(nombre);
-        turnos[nombre] = 1500;
-        guardarJugadores();
+        turnos[nombre] = 1500; // Cada jugador empieza con $1,500
+        guardarJugadores(); // Guardar en localStorage
 
         let listaJugadores = document.getElementById("listaJugadores");
         let nuevoJugador = document.createElement("li");
@@ -52,13 +59,30 @@ function iniciarTemporizador() {
     }, 1000);
 }
 
-// Función para cambiar de turno
+// Función para cambiar de turno con eventos aleatorios
 function siguienteTurno() {
     if (jugadores.length > 0) {
         turnoActual++;
         turnoActual = turnoActual % jugadores.length;
         document.getElementById("turnoJugador").innerText = jugadores[turnoActual];
         iniciarTemporizador();
+
+        // Activar evento aleatorio cada 3 turnos
+        if ((turnoActual + 1) % 3 === 0) {  
+            let evento = eventos[Math.floor(Math.random() * eventos.length)];
+            alert(`🎲 Evento Aleatorio: ${evento.nombre}\n🔹 Efecto: ${evento.efecto}`);
+
+            // Aplicar efecto del evento en el dinero de los jugadores
+            jugadores.forEach(jugador => {
+                if (turnos[jugador] >= evento.costoEvitar) {
+                    turnos[jugador] -= evento.costoEvitar;
+                    guardarJugadores(); // Guardar cambios
+                }
+            });
+
+            // Actualizar dinero de los jugadores en pantalla
+            actualizarDineroJugadores();
+        }
     } else {
         alert("Agrega jugadores antes de iniciar la partida.");
     }
@@ -75,8 +99,3 @@ function actualizarDineroJugadores() {
         listaJugadores.appendChild(nuevoJugador);
     });
 }
-
-// Recargar la lista de jugadores al cargar `index.html`
-document.addEventListener("DOMContentLoaded", function () {
-    actualizarDineroJugadores();
-});

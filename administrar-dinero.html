@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Dinero - Dominio Canino</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>💰 Administrar Dinero 🎲</h1>
+
+    <h3>Selecciona un jugador:</h3>
+    <select id="jugadorSeleccionado"></select>
+
+    <h3>Saldo actual: <span id="saldoJugador">---</span></h3>
+
+    <input type="number" id="monto" placeholder="Monto">
+    
+    <button onclick="modificarDinero('aumentar')">➕ Aumentar Dinero</button>
+    <button onclick="modificarDinero('disminuir')">➖ Disminuir Dinero</button>
+
+    <button onclick="window.location.href='index.html'">↩️ Volver al Juego</button>
+
+    <script src="administrar-dinero.js"></script>
+</body>
+</html>
