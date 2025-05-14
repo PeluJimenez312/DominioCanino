@@ -1,5 +1,6 @@
-let jugadores = []; // Lista de jugadores
-let turnoActual = 0; // Índice del jugador en turno
+let jugadores = [];
+let turnos = {};
+let turnoActual = 0;
 let tiempoRestante = 120;
 let añoActual = 2013;
 let intervaloTiempo;
@@ -8,17 +9,17 @@ let intervaloAño;
 function iniciarJuego() {
     let nombre = document.getElementById("nombreJugador").value;
     if (nombre) {
-        jugadores.push(nombre); // Agregar el jugador a la lista
-        document.getElementById("listaJugadores").innerHTML += `<li>${nombre}</li>`;
+        jugadores.push(nombre);
+        turnos[nombre] = 1500; // Cada jugador empieza con $1,500
+        document.getElementById("listaJugadores").innerHTML += `<li>${nombre} - 💰 $${turnos[nombre]}</li>`;
         
-        // Si es el primer jugador, inicia el juego con su nombre en turno
         if (jugadores.length === 1) {
             document.getElementById("turnoJugador").innerText = jugadores[0];
             iniciarRelojTiempo();
             iniciarRelojAño();
         }
-
-        document.getElementById("nombreJugador").value = ""; // Limpiar el campo de entrada
+        
+        document.getElementById("nombreJugador").value = "";
     }
 }
 
@@ -43,10 +44,10 @@ function iniciarRelojAño() {
     intervaloAño = setInterval(() => {
         añoActual++;
         if (añoActual > 3000) {
-            añoActual = 2013; // Reinicia el año al llegar a 3000
+            añoActual = 2013;
         }
         document.getElementById("relojAño").innerText = añoActual;
-    }, 120000); // Cambia de año cada 2 minutos
+    }, 120000);
 }
 
 function siguienteTurno() {
@@ -58,11 +59,3 @@ function siguienteTurno() {
         alert("Agrega jugadores antes de iniciar la partida.");
     }
 }
-
-// Iniciar relojes al cargar la página si ya hay jugadores registrados
-window.onload = () => {
-    if (jugadores.length > 0) {
-        iniciarRelojTiempo();
-        iniciarRelojAño();
-    }
-};
