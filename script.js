@@ -67,12 +67,14 @@ function actualizarDineroJugadores() {
     });
 }
 
-// Función para borrar partida (Eliminar `localStorage` y recargar)
 function borrarPartida() {
     let confirmacion = confirm("¿Estás seguro de que quieres borrar la partida? Se eliminarán todos los jugadores y su dinero.");
     if (confirmacion) {
-        localStorage.clear();
-        location.reload();
+        localStorage.clear(); // Borra todos los datos guardados
+        location.reload(); // Recarga la página
+    }
+}
+
     }
 }
 
